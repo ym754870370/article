@@ -5,6 +5,10 @@
 
 服务器决定是否需要cookie，然后浏览器通过set-cookie字段的要求，在http请求中自动包装cookie进行传输
 
+每个域下，Cookie的数量是有限制的，当超过限制时，浏览器会清除以前设置的Cookie,火狐会随机清除，ie(7+ 50个上限)和opera(30个上限)会删除使用最少的，
+safri和chrome对于每个域下的cookie的数量限制没有硬性规定
+cookie的大小大约在4096B(加减1)的长度范围，尺寸Cookie影响到的是域下的所有Cookie,并非每个cookie单独受到限制
+
 #### 临时Cookie
 
 
