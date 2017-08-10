@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>flex布局 两边固定中间自适应</title>
+    <style>
+      *{
+        padding: 0px;
+        margin: 0px;
+      }
+      
+      .parent{
+        width: 100%;
+        height: 1000px;
+        background-color: red;
+        display: flex;––
+        flex: 1;
+        flex-direction: row;
+      }
+      .child1{
+        width: 100px;
+        height: 1000px;
+        background-color: yellow;
+      }
+      .child2{
+        width: 100%;
+        height: 1000px;
+        background-color: #D8E2E6;
+      }
+      .child3{
+        width: 100px;
+        height: 1000px;
+        background-color: yellow;
+      }
+
+      /*.box{
+        width: 100%;
+        height: 1000px;
+      }
+      .box-child3{
+        width: 500px;
+        height: 200px;
+        background-color: red;
+        margin-left: 200px;
+        margin-right: 200px;
+        overflow: visible;
+
+      }
+      .box-child1{
+        width: 200px;
+        height: 200px;
+        float: left;
+        background-color: blue;
+      }
+      .box-child2{
+        width: 100px;
+        height: 200px;
+        float: right;
+        background-color: yellow;
+      }*/
+    </style>
+</head>
+
+<body>
+  <div class="parent">
+     <div class="child1"></div> <!-- flex布局不支持浮动，排列顺序就是按照html结构 -->
+    <div class="child2"></div>
+    <div class="child3"></div>
+<!--     <div class="child3"></div>
+    <div class="child3"></div>
+    <div class="child3"></div> -->
+  </div>
+
+    <!-- <div class="box">
+      <div class="box-child1"></div>
+      <div class="box-child2"></div>
+      <div class="box-child3"></div>
+    </div> -->
+</body>
+
+</html>
