@@ -50,7 +50,7 @@ Domain属性： 设置接受cookie的域
   比如： 设置Path=/accounts; Domain=.foo.com
 这告诉浏览器只有当请求页面包含在.foo.com/accounts的任何子域下时才返回这个Cookie;
 
-Secure属性：限制Cookie传输必须在加密传输(通常是通过传输层安全性（TLS）的HTTP)中，浏览器只能通过安全/加密使用Cookie,如果在一个非安全连接中给Cookie设置了一个Secure属性，这个Cookie在发送给用户时仍然可以通过中间人拦截到，因此必须通过安全连接状态下设置secure属性
+Secure属性：HTTPS传输的cookie会自动带上secure属性，限制Cookie传输必须在加密传输(通常是通过传输层安全性（TLS）的HTTP)中，浏览器只能通过安全/加密使用Cookie,如果在一个非安全连接中给Cookie设置了一个Secure属性，这个Cookie在发送给用户时仍然可以通过中间人拦截到，因此必须通过安全连接状态下设置secure属性
 
 HttpOnly属性： 指示浏览器除了HTTP和HTTPS请求之外不再显示Cookie,这样表示这种cookie不能在客户端通过脚本进行获取，因此不会轻易的被跨站脚本窃取
 
