@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>flex布局 两边固定中间自适应</title>
+    <style>
+      *{
+        padding: 0px;
+        margin: 0px;
+      }
+
+      .parent{
+        width: 100%;
+        height: 1000px;
+        background-color: red;
+        display: flex;
+        flex: 1;
+        flex-direction: row;
+      }
+      .child1{
+        width: 100px;
+        height: 1000px;
+        flex-grow: 0;
+        background-color: yellow;
+      }
+      .child2{
+        height: 1000px;
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-basis: 0;
+        background-color: #D8E2E6;
+      }
+      .child3{
+        width: 100px;
+        height: 1000px;
+        flex-grow: 0;
+        background-color: yellow;
+      }
+
+    </style>
+</head>
+<!--
+父盒子属性：
+flex-direction: row / column / row-reverse / column-reverse;主轴的排列顺序 如 从左到右 从上到下
+flex-wrap: wrap(换行) / nowrap(不换行) / wrap-reverse(第一行在下方);
+flex-flow: <flex-direction> || <flex-wrap> 集合上面两个参数
+
+justify-content: center;水平居中
+align-item: center;垂直居中
+align-content: flex-start | flex-end | center | space-between | space-around | stretch; 定义了多行排列布局方式
+
+子盒子属性
+order: <number>  决定盒子排列顺序，数值越大越在后面
+
+flex-grow:当父级盒子大于所有子盒子面积时，子盒子索取父级盒子的剩余空间来放大自己
+flex-basis:设置该元素的宽度，会覆盖width的值
+flex-shrink:当父级盒子小于子盒子面积时，子盒子会缩小自身的宽度
+flex: <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> 上面三个属性的集合
+
+align-self: auto | flex-start | flex-end | center | baseline | stretch; 可以覆盖父级的align-items属性；决定自己的位置；
+-->
+<body>
+  <div class="parent">
+     <div class="child1"></div> <!-- flex布局不支持浮动，排列顺序就是按照html结构 -->
+    <div class="child2"></div>
+    <div class="child3"></div>
+  </div>
+
+</body>
+
+</html>

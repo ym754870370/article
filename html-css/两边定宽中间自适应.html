@@ -8,74 +8,66 @@
         padding: 0px;
         margin: 0px;
       }
-
+      /*浮动
       .parent{
         width: 100%;
         height: 1000px;
         background-color: red;
-        display: flex;––
-        flex: 1;
-        flex-direction: row;
       }
       .child1{
         width: 100px;
         height: 1000px;
+        float: left;
         background-color: yellow;
-      }
-      .child2{
-        width: 100%;
-        height: 1000px;
-        background-color: #D8E2E6;
       }
       .child3{
-        width: 100px;
-        height: 1000px;
-        background-color: yellow;
-      }
-
-      /*.box{
         width: 100%;
         height: 1000px;
+        margin-left: 100px;
+        background-color: #D8E2E6;
       }
-      .box-child3{
-        width: 500px;
-        height: 200px;
-        background-color: red;
-        margin-left: 200px;
-        margin-right: 200px;
-        overflow: visible;
-
-      }
-      .box-child1{
-        width: 200px;
-        height: 200px;
-        float: left;
-        background-color: blue;
-      }
-      .box-child2{
+      .child2{
         width: 100px;
-        height: 200px;
+        height: 1000px;
         float: right;
         background-color: yellow;
       }*/
+      /*定位: 必须保证左右两边的盒子写在中间盒子之前,否则不给子盒子设置 top  盒子就会被挤下去*/
+      .parent{
+        width: 100%;
+        height: 1000px;
+        background-color: red;
+      }
+      .child1{
+        width: 100px;
+        height: 1000px;
+        position: absolute;
+        left: 0px;
+        background-color: yellow;
+      }
+      .child3{
+        width: 100%;
+        height: 1000px;
+        margin: 0 100px;
+        background-color: #D8E2E6;
+      }
+      .child2{
+        width: 100px;
+        height: 1000px;
+        position: absolute;
+        right: 0px;
+        background-color: blue;
+      }
     </style>
 </head>
 
 <body>
+  <div style="width: 100%; height: 200px;"></div>
   <div class="parent">
      <div class="child1"></div> <!-- flex布局不支持浮动，排列顺序就是按照html结构 -->
     <div class="child2"></div>
     <div class="child3"></div>
-<!--     <div class="child3"></div>
-    <div class="child3"></div>
-    <div class="child3"></div> -->
   </div>
-
-    <!-- <div class="box">
-      <div class="box-child1"></div>
-      <div class="box-child2"></div>
-      <div class="box-child3"></div>
-    </div> -->
 </body>
 
 </html>
