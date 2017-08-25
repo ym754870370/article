@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>继承</title>
+    <style>
+    </style>
+</head>
+<body>
+</body>
+<script>
+//组合式继承
+    function Super(){
+      this.val = 1;
+      this.arr = [1];
+    }
+    Super.prototype.fun1 = function(){};
+    Super.prototype.fun2 = function(){};
+
+    function Sub(){
+      Super.call(this);
+    }
+    Sub.prototype = new Super();
+
+
+//寄生组合式继承
+function beget(obj){
+  var F = function(){};
+  F.prototype = obj;
+  return new F();
+}
+
+function Super(){
+  this.name = 'ming';
+  this.arr = [1,2];
+}
+
+// Super.prototype.fun1 = function(){};
+// Super.prototype.fun2 = function(){};
+
+function Sub(){
+  Super.call(this);
+}
+
+let proto = beget(Super.prototype);
+// let proto = new Super();
+proto.constructor = Sub;
+Sub.prototype = proto;
+
+var sub = new Sub();
+console.log(sub.name);
+console.log(sub.arr);
+
+
+</script>
+</html>
