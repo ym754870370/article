@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>深拷贝</title>
+    <style>
+    </style>
+</head>
+<body>
+</body>
+<script>
+
+let deepCopy = function(copyObj,obj){
+    let obj = obj || {};
+    for(i in copyObj){
+        if (typeof obj[i] === 'Object' ){
+            obj[i] = (copyObj[i].constructor === Array) ? [] : {};
+            deepCopy(copyObj[i], obj[i]);
+        } else {
+            obj[i] = copyObj[i];
+      }
+    }
+}
+
+</script>
+</html>
