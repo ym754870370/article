@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>三角形</title>
+    <style>
+      *{
+        padding: 0px;
+        margin: 0px;
+      }
+      .box:after{
+          content:".";
+          height:0;
+          visibility:hidden;
+          display:block;
+          clear:both;
+      }
+      .demo{
+        width: 200px;
+        height:400px;
+        background-color: red;
+        border: 1px solid blue;
+      }
+      .child{
+        float: left;
+      }
+
+
+    </style>
+</head>
+
+<body>
+  <div class="box">
+    <div class="demo child"></div>
+    <div class="demo child"></div>
+    <div class="demo child"></div>
+
+    <!-- <div style="clear:both;"></div> -->
+  </div>
+</body>
+
+</html>
