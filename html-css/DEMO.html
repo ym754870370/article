@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>三角形</title>
+    <style>
+    a {
+      color: #00bc9b;
+    }
+    </style>
+</head>
+
+<body>
+  <div id="jsContainer">
+这里会给出一段随机文本，可能包含一些链接，比如https://www.baidu.com，或者 www.baidu.com?from=onlineExam，如果出现链接文本，请给该链接文本加上链接标签，用户点击后能直接在新窗口中打开该链接。
+</div>
+</body>
+<script>
+function link() {
+    let container = document.getElementById('jsContainer');
+    let text = container.innerText;
+    let rwww = /www?:\/\/\w+\.\w+\.\w+/gi;
+    let rhttp =/http?:\/\/\w+\.\w+\.\w+/gi;
+    let rhttps = /https?:\/\/\w+\.\w+\.\w+/gi;
+
+    console.log(rwww.test('www.baidu.com?from=onlineExam'));
+    console.log(rhttps.test('https://www.baidu.com'));
+
+}
+link();
+
+
+
+</script>
+
+
+
+</html>
