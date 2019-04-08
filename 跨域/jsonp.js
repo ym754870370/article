@@ -53,7 +53,7 @@ function ajax(params){
 
         params.data['callback'] = callbackName;
         var data = formatParams(params.data);
-        var script = document.createElement('script');
+        var script = document.createElement('script');//
         head.appendChild(script);
 
         window[callbackName] = function(json) {
