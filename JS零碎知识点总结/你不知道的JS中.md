@@ -91,3 +91,46 @@
      promise本身就是为了解决异步，对其中的发送请求，然后返回值后再执行resolve或者reject 不是很理解
      
      用promise去发起请求，请求成功或失败后调用promise内的resolve或reject作为回调函数，并传入参数
+
+     promise是采用了 单决议的机制，且无法被外部取消
+
+     promise在过程中出现错误，(如果不做好处理，存在类似于try catch一样，吞掉错误信息)
+       1. 需要启用下一个 then方法 去捕捉
+       2. 最后配置 catch方法去捕捉
+       3. 最后配置 done方法去捕捉(还没有纳入ES6标准)
+
+      .all([p1, p2]).then([p1res, p2res]),值得返回顺序和事件的调用顺序保持一致，与事件完成顺序无关
+
+#### generater
+      1. yield 需要通过 .next()去执行，那dva中的 请求是是怎么继续执行的，因为我们并没有手动写.next()???
+      dva 其实分装了方法 put call,其内部实际调用了 .next()方法，使得我们使用起来无感知
+
+
+```javascript
+
+      function *smt(){
+	let nv;	
+	while(true) {
+		if(nv === undefined) { nv =1;
+		} else {
+			nv = (3*nv) + 6;
+		}
+		yield nv; 
+            }
+      }
+      for(var v of smt()) {
+            console.log(v);
+            // 跳出循环
+            if(v > 500) { bteak;}
+      }
+
+      // 传递给变量后会存下之前的状态，第一次执行后每次都会从yield开始
+      var it = smt()
+      
+      it.next().value;
+
+      smt().next().value;
+
+```
+      async await 不太理解
+      254 - 286 需要重新看，比较吃力，无法理解
