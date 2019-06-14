@@ -54,5 +54,7 @@ Secure属性：HTTPS传输的cookie会自动带上secure属性，限制Cookie传
 
 HttpOnly属性： 指示浏览器除了HTTP和HTTPS请求之外不再显示Cookie,这样表示这种cookie不能在客户端通过脚本进行获取，因此不会轻易的被跨站脚本窃取
 
+Expries / Max-age
+
 
 ```

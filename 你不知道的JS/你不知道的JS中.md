@@ -100,6 +100,53 @@
 
       .all([p1, p2]).then([p1res, p2res]),值得返回顺序和事件的调用顺序保持一致，与事件完成顺序无关
 
+      promise具备三种状态： pending  fulfilled  rejected
+
+```javascript
+      function Promise(callback) {
+            const self = this;
+            self.status = 'PENDING';
+            self.data = undefined; // Promise的值
+
+            self.onResolvedCallback = [];
+            self.onRejectedCallback = [];
+            callback(resolve, reject);
+
+            function resolve(value){
+                  if(self.status == 'PENDING') {
+                        self.status = 'FULFILLED';
+                        self.data = value;
+                        for(let i = 0; i < self.onResolvedCallback.length; i++) {
+                              self.onResolvedCallback[i](value)
+                        }
+                  }
+
+            }
+
+            function reject(error){
+                  if(self.status == 'PENDING') {
+                        self.status = 'REJECTED';
+                        self.data = error;
+                        // 依次执行失败之后的函数栈
+                        for(let i = 0; i < self.onResolvedCallback.length; i++) {
+                              self.onResolvedCallback[i](value)
+                        }
+                  }
+            }
+      }
+
+      Promise,prototype.then = function(onResolved, onRejectd) {
+            const self = this;
+            let promise2;
+
+            // 根据标准，如果then的参数不是function,则我们需要忽略它，此处以如下方式处理
+            onResolved = typeof onResolved === 'function' ? onResolved : function(value){}; 
+            onRejectd = typeof onRejectd === 'function' ? onRejectd : function(reason){}; 
+      }
+
+```
+
+
 #### generater
       1. yield 需要通过 .next()去执行，那dva中的 请求是是怎么继续执行的，因为我们并没有手动写.next()???
       dva 其实分装了方法 put call,其内部实际调用了 .next()方法，使得我们使用起来无感知
