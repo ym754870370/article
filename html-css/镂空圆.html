@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Examples</title>
+<style>
+.hole {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  z-index: 2;
+  /*overflow: hidden;*/
+}
+.img {
+  background: red;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+}
+
+.box {
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  left: 0px;
+  top: 0px;
+  content: '';
+  border-radius: 50%;
+  border: 1px solid #0079AB;
+  z-index: 2;
+}
+.black {
+  width: 100%;
+  height: 100%;
+  background-color: yellow;
+  position: absolute;
+  z-index: 1;
+}
+</style>
+</head>
+<body><!-- body 设置背景色是为了能看出镂空效果 -->
+    <div class="hole" >
+      <div class="box"></div>
+      <div class="img"></div>
+      <div class="black"></div>
+    </div>
+</body>
+</html>
