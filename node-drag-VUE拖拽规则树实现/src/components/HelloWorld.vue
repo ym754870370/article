@@ -10,11 +10,11 @@
         @dragend="dragend"
         @dragover="dragover"
         :data-key="item.key"
-        :data-path="`${path || path === 0 ? `${path}-` : ''}${index}`"
+        :data-index-list="[...indexList, index]"
       >
         {{item.name}}
       </div>
-      <Node class="node" v-show="item.children" :path="`${path || path === 0 ? `${path}-` : ''}${index}`" :data="item.children" />
+      <Node class="node" v-show="item.children" :indexList="[...indexList, index]" :data="item.children" />
     </div>
   </div>
 </template>
@@ -26,8 +26,14 @@ export default {
   name: 'Node',
   props: {
     data: {},
-    path: 0,
-    index: 0,
+    index: {
+      type: Number,
+      default: 0,
+    },
+    indexList: {
+      type: Array,
+      default: () => [],
+    },
   },
   components: {
     Node
@@ -58,41 +64,40 @@ export default {
         key: event.target.dataset.key,
         className: event.target.className,
       };
+      // 由于 enter事件都是发生在leave前 所以用count来记录 是否真正的离开了
       const count = this.$store.state.count + 1;
       this.$store.commit('changeState', {key: 'targetNode',value: targetNode});
       this.$store.commit('changeState', {key: 'count',value: count});
       this.$store.commit('changeState', {key: 'isOutside',value: false});
     },
+    // 当真正离开时 记录一下状态 去清除css hover的样式
     dragleave(event) {
       event.preventDefault();
       const count = this.$store.state.count - 1;
       const isOutside = this.$store.state.isOutside;
       this.$store.commit('changeState', {key: 'count',value: count});
-      console.log('count: ', count);
       if(count === 0) {
         this.$store.commit('changeState', {key: 'isOutside',value: true});
       }
       
     },
+    // enter元素后 监听鼠标的移动 判断 拖拽元素 是移动到 当前元素 上方还是 下方
     dragover(event) {
       const element = event.toElement;
       const isTop = !!(event.pageY <= (element.offsetTop + element.clientHeight/2));
       this.$store.commit('changeState', {key: 'isTop',value: isTop });
     },
+    // end 结束时 拿到鼠标坐标点 判断是否在 拖拽区域内 在则进行 移动操作 不在则清除 节点信息
     dragend(event){
       const parent = document.querySelector('.drag-box');
       const isInX = !!(parent.offsetLeft <= event.pageX && event.pageX <= (parent.offsetLeft + parent.clientWidth));
       const isInY = !!(parent.offsetTop <= event.pageY && event.pageY <= (parent.offsetTop + parent.clientHeight));
-      console.log('isInX: ', isInX);
-      console.log('isInY: ', isInY);
       if(isInX && isInY) {
         const targetNode = this.$store.state.targetNode;
         const className = targetNode.className.split(' ')[1];
         const element = document.querySelector(`.${className}`);
-        const path = element.dataset.path;
-        const key = element.dataset.key;
-        const targetList = path.split('-');
-        const souceList = event.target.dataset.path.split('-');
+        const targetList = element.dataset.indexList.split(',');
+        const souceList = event.target.dataset.indexList.split(',');
         this.$store.commit('cahngeData', {targetList, souceList});
         this.$store.commit('changeState', {key: 'targetNode',value: {}});
       } else {
