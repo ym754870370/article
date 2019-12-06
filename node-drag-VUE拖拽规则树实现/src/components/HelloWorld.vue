@@ -2,13 +2,14 @@
   <div class="hello">
     <div :class="`parent parent-${item.key}`" v-for="(item, index) in data" :key="item.key">
       <div
-        :class="`drag drag-${item.key} ${showClass(item)}`"
+        :class="`drag drag-${item.key} ${showClass(item)}  ${dragClass(item)}`"
         draggable="true"
         @dragstart="dragstart"
         @dragleave="dragleave"
         @dragenter="dragenter"
         @dragend="dragend"
         @dragover="dragover"
+        @drag="drag"
         @click="showChildrenSwitch([...indexList, index])"
         :data-key="item.key"
         :data-index-list="[...indexList, index]"
@@ -30,7 +31,6 @@
 
 <script>
 import Node from './HelloWorld.vue'
-import { nextTick } from 'q';
 export default {
   name: 'Node',
   props: {
@@ -48,12 +48,21 @@ export default {
     Node
   },
   methods: {
+    // 展示子元素
     showChildrenSwitch(indexList) {
       this.$store.commit('changeShowChildren', indexList);
     },
+    // 给拖拽元素 增加特别的 类名
+    dragClass(item) {
+       if (this.$store.state.node.key === item.key && !this.$store.state.isOutside) {
+         return 'drag-node';
+       }
+       return '';
+    },
+    // 给 放置元素 增加 对应的样式
     showClass(item) {
-      if (this.$store.state.targetNode.key === item.key && !this.$store.state.isOutside) {
-       
+
+      if (this.$store.state.targetNode.key === item.key && !this.$store.state.isOutside && this.$store.state.node.key !== item.key) {
         if(this.$store.state.isTop) {
           return 'showBorderTop';
         } else {
@@ -87,12 +96,12 @@ export default {
     dragleave(event) {
       event.preventDefault();
       const count = this.$store.state.count - 1;
-      const isOutside = this.$store.state.isOutside;
       this.$store.commit('changeState', {key: 'count',value: count});
+
+      // 一种离开是 移出所有拖拽区域   另一种 是松开鼠标 结束拖拽时 触发 dragleave
       if(count === 0) {
         this.$store.commit('changeState', {key: 'isOutside',value: true});
       }
-      
     },
     // enter元素后 监听鼠标的移动 判断 拖拽元素 是移动到 当前元素 上方还是 下方
     dragover(event) {
@@ -108,6 +117,9 @@ export default {
     },
     // end 结束时 拿到鼠标坐标点 判断是否在 拖拽区域内 在则进行 移动操作 不在则清除 节点信息
     dragend(event){
+      // console.log('event: ', event);
+
+      // 问题来了 我为何不用 drag 监听坐标 而 是把 拖拽元素的 离开 拆成了两段
       const parent = document.querySelector('.drag-box');
       const isInX = !!(parent.offsetLeft <= event.pageX && event.pageX <= (parent.offsetLeft + parent.offsetWidth));
       const isInY = !!(parent.offsetTop <= event.pageY && event.pageY <= (parent.offsetTop + parent.offsetHeight));
@@ -131,6 +143,11 @@ export default {
         this.$store.commit('changeState', {key: 'targetNode',value: {}});
       }
     },
+    drag(event) {
+      // if(event.pageY === 0 || event.pageX === 0) {
+        // this.$store.commit('changeState', {key: 'isOutside',value: true});
+      // }
+    }
   },
 }
 
@@ -143,7 +160,7 @@ export default {
   text-align: left;
 }
 .node {
-  margin-left: 20px;
+  margin-left: 40px;
 }
 .drag {
   padding: 10px;
@@ -168,6 +185,10 @@ export default {
   /* display: flex;
   flex-direction: column; */
 }
+.drag-node {
+  color: #000;
+}
+
 /* .model-hover-box {
   position: absolute;
   z-index: 10;
