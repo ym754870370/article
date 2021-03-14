@@ -1,0 +1,22 @@
+{
+  "name": "learn-webpack",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpac --config webpack.prod.js",
+    "watch": "webpack --watch",
+    "start": "webpack-dev-server",
+    "dev": "webpack-dev-server --config webpack.dev.config.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack-cli": "^3.3.7"
+  },
+  "dependencies": {
+    "webpack": "^4.39.3"
+  },
+  "description": ""
+}

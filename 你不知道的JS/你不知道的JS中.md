@@ -144,6 +144,9 @@
             onRejectd = typeof onRejectd === 'function' ? onRejectd : function(reason){}; 
       }
 
+
+ 浏览器使用C++自身实现了微观队列和宏观队列[https://zhuanlan.zhihu.com/p/48522249]
+
 ```
 
 

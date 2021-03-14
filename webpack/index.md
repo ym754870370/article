@@ -30,3 +30,33 @@ chunkhash：将模块分开， 同步模块， 主模块， 异步模块， 根�
         'module'
       )
     ```
+
+### externals
+```javascript
+
+  // 声明组件包 不会被打包到bundle.js中  可以支持import引用 当前组件包没有会去 script或者父集依赖中调用
+  externals: [
+      {
+          vue: {
+              root: 'Vue',
+              commonjs: 'vue',
+              commonjs2: 'vue',
+              amd: 'vue'
+          },
+          axios: 'axios',
+          'byted-tea-sdk': 'byted-tea-sdk',
+          'vue-i18n': 'vue-i18n',
+      },
+  ],
+```
+
+
+### loader 和 plugin 的区别
+```
+  loader: 主要针对资源文件的加载，去编译或转化文件，执行顺序为最后一个先执行然后执行结果作为参数传递至上一个
+
+  plugin: 主要是偏向于工程层面，如扩展变量，优化性能，增加一些特殊逻辑处理。
+
+
+
+```
