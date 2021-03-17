@@ -115,3 +115,46 @@
 
 ```
 
+
+## 实现promise.last  获取请求中最后一个正确的
+```javascript
+      const a = new Promise(resolve => {
+            setTimeout(() => resolve(1), 1000)
+      })
+
+      const b = new Promise(resolve => {
+            setTimeout(() => resolve(2), 4000)
+      })
+
+      const c = new Promise(resolve => {
+            setTimeout(() => resolve(3), 3000)
+      })
+
+      const d = new Promise((resolve, reject) => {
+            setTimeout(() => reject(), 1000)
+      })
+
+      Promise.last = function(arr) {
+            const result = [];
+            let index = 0;
+            return new Promise(resolve => {
+                  arr.forEach(v => {
+                        v.then((data) => {
+                              result.push(data);
+                              index = index +1;
+                              if (index === arr.length) {
+                                    return resolve(result[result.length -1]);
+                              }
+                        });
+                        v.catch(() => {
+                              index = index +1;
+                        });
+                  });
+            })
+      }
+
+      Promise.last([a,b,c,d]).then(data => {
+            console.log('data', data);
+      });
+
+```

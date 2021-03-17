@@ -29,3 +29,6 @@ react 也可以理解为是一个 dom 拼接工具，把数据拼成新 dom 替�
    
 双向数据绑定
   1. 单向数据绑定 + UI事件监听(捕捉ViewModel的变化并更新到M层)
+
+
+把Controller的数据和逻辑处理部分从中抽离出来，用一个专门的对象去管理，这个对象就是ViewModel，是Model和Controller之间的一座桥梁
