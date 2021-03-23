@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ueditor demo</title>
+</head>
+
+<body>
+    <!-- 加载编辑器的容器 -->
+    <script id="container" name="content" type="text/plain">
+        这里写你的初始化内容
+    </script>
+    <!-- 配置文件 -->
+    <script type="text/javascript" src="ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="ueditor.all.js"></script>
+    <!-- 实例化编辑器 -->
+    <script type="text/javascript">
+        var ue = UE.getEditor('container');
+    </script>
+   <!--  <div style="width:400px;height:200px; background-color: red;">
+        <span style="float: left;width: auto; height:100%;background-color: blue;">
+            <i style="position:absolute;float:left;width: 100px;height:50px;"></i>
+        </span>
+      </div>
+    <iframe src="javascript: alert(1)"></iframe> -->
+    <script>
+        // let c = function(a, b) {
+        //     alert(a + b);
+        // };
+        // let d = function(a, b) {
+        //     alert(a - b);
+        // };
+        // let f = d.call(c, 3, 4);
+        // alert(f);
+
+        
+        // var stack = new Stack();//初始化Stack类
+        // console.log(stack.isEmpty());
+        // stack.push(5);
+        // stack.push(8);
+        // console.log(stack.peek());
+        // function divideBy2(value){
+        //     var remStack = new Stack(),
+        //         rem,
+        //         binarySring = '';
+        //     while (value > 0){
+        //         rem = Math.floor(value % 2);//rem为数字得到的余数
+        //         remStack.push(rem);//将得到的余数放入栈中
+        //         value = Math.floor(value / 2);//求得整数为商减去余数
+        //     }
+        //     while (!remStack.isEmpty()){
+        //         binarySring += remStack.pop().toString();
+        //     }
+        //     return binarySring;
+        // }
+        // console.log(divideBy2(233));
+        function baseConverter(decNumber, base){
+            var remStack = new Stack(),
+                rem,
+                baseString = '',
+                digits = '0123456789ABCDEF';
+
+            while (decNumber > 0){
+                rem = Math.floor(decNumber % base);
+                remStack.push(rem);
+                decNumber = Math.floor(decNumber / base);
+            }
+            while (!remStack.isEmpty()){
+                baseString += digits[remStack.pop()];//删除的数字与对应数组位置的数字上相同，同时将10以上转换为abcdef
+            }
+            return baseString;
+        }
+        console.log(baseConverter(233, 2));
+    </script>
+</body>
+
+</html>

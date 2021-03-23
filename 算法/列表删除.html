@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM列表删除</title>
+</head>
+<body>
+    <div class="body"><ul class="ul">
+            <li>这是第一条 <button>删除</button></li>
+            <li>这是第二条 <button>删除</button></li>
+            <li>这是第三条 <button>删除</button></li>
+            <li>这是第四条 <button>删除</button></li>
+            <li>这是第五条 <button>删除</button></li>
+            <li>这是第六条 <button>删除</button></li>
+        </ul>
+    </div>
+  <script>
+    window.onload = function(){
+        console.log(NodeList);
+        var btn = document.querySelector('.ul');
+        console.log(btn.childNodes)
+        console.log(btn.firstChild)
+
+        // btn.addEventListener('click', function(e){
+        //     if (e.target.tagName === 'BUTTON') {
+        //         btn.removeChild(e.target.parentNode);
+        //     }
+        // })
+        // btn.addEventListener('touchend', function(e){
+        //     if (e.target.tagName === 'BUTTON') {
+        //         btn.removeChild(e.target.parentNode);
+        //     }
+        // })
+
+        if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
+            btn.addEventListener('touchend', function(e){
+                if (e.target.tagName === 'BUTTON') {
+                    btn.removeChild(e.target.parentNode);
+                    console.log('yang');
+                }
+            })
+        } else {
+            btn.addEventListener('click', function(e){
+                if (e.target.tagName === 'BUTTON') {
+                    btn.removeChild(e.target.parentNode);
+                    console.log('ming');
+                }
+            })
+        }
+    }
+  </script>
+</body>
+
+</html>

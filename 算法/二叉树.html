@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>二叉树</title>
+</head>
+<body>
+  <script>
+      //二叉树
+
+    function BinarySearchTree(){
+      
+      var Node = function(key){//设置一个节点
+        this.key = key; //节点自身值
+        this.left = null; //节点的左节点指针
+        this.right = null;//节点的右节点指针
+      };
+      
+      var root = null; //先声明根变量
+
+      this.insert = function(key){ //插入元素
+        var newNode = new Node(key); //将传入的值继承节点的格式，并导入该节点
+
+        if (root === null) {
+          root = newNode;//判断二叉树有无根节点，无则将新节点变成根节点
+        } else {
+          insertNode(root, newNode);//如果二叉树有根节点，则调用下面方法进行节点的插入
+        }
+      }
+
+      var insertNode = function(node, newNode){
+        if (newNode.key < node.key) {//如果新的节点的值小于其父节点值则传递到该父节点的左节点
+          if (node.left === null) {
+            node.left = newNode;//如果父节点的左节点指针指向空则将指针指向该节点
+          } else {
+            insertNode(node.left, newNode);
+            //如果父节点的左节点指针不为空则将该节点的左节点再作为父节点再次调用函数方法继续判断无限向下直到某个位置左右节点指针为空
+          }
+        } else {
+          if (node.right === null) {
+            node.right = newNode;
+          } else {
+            insertNode(node.right, newNode);
+          }
+        }
+      };
+
+      //中序遍历
+      this.inOrderTraverse = function(callback){
+        inorderTraverseNode(root, callback);
+      };
+
+      var inorderTraverseNode = function(node, callback){
+        if (node !== null) {
+          inorderTraverseNode(node.left, callback);
+          //左节点， 这几个方法的执行顺序不应该时从最底层开始，然而先执行最底层的node,再执行它的父节点，那其的左右节点不是又要再执行一遍吗？？？？
+          //因为它们时层层包裹的关系，不会对节点值进行重复打印
+          callback(node.key);//根节点
+          inorderTraverseNode(node.right, callback);//右节点
+        }
+      };
+      
+
+
+      //先序遍历
+      this.preOrderTraverse = function(callback){
+        preOrderTraverseNode(root, callback);
+      };
+
+      var preOrderTraverseNode = function(node, callback){
+        if (node !== null) {
+          callback(node.key);//根
+          preOrderTraverseNode(node.left, callback);//左
+          preOrderTraverseNode(node.right, callback);//右
+        }
+      };
+
+
+      //后序遍历
+
+      this.postOrderTraverse = function(callback){
+        postOrderTraverseNode(root, callback);
+      };
+
+      var postOrderTraverseNode = function(node, callback){
+        if (node !== null) {
+          postOrderTraverseNode(node.left, callback);//左
+          postOrderTraverseNode(node.right, callback);//右
+          callback(node.key);//根
+        };
+      };
+
+    }
+
+  </script>
+</body>
+
+</html>

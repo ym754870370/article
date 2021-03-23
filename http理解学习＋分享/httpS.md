@@ -10,7 +10,7 @@
 ##### 需要了解的术语和知识点
 
 ![Alt text](./photos/ssl层级关系.png)
-ssl record protocol ssl记录层
+###### ssl record protocol ssl记录层
 ###### SSL握手协议（SSL handshake protocol): 用来协商通信过程中使用的加密套件（加密算法、密钥交换算法和MAC算法等）、在服务器和客户端之间安全地交换密钥、实现服务器和客户端的身份验证。
 
 ###### SSL密码变化协议（SSL change cipher spec protocol):客户端和服务器端通过密码变化协议通知对端，随后的报文都将使用新协商的加密套件和密钥进行保护和传输。

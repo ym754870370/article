@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>冒泡排序</title>
+</head>
+<body>
+  <script>
+    function ArrayList(){
+      var array = [];
+      this.insert = function(item){
+        array.push(item);
+      }
+      this.toString = function(){
+        return array.join();
+      }
+
+      let swap = function(index1, index2){
+        let aux = array[index1];
+        array[index1] = array[index2];
+        array[index2] = aux;
+      }
+
+      this.bubbleSort = function(){
+        var length = array.length;
+
+        for(let i = 0; i < length; i++){
+          for(let j = 0; j < length - 1 -i; j++){
+            if(array[j] > array[j+1]){
+              swap(j, j+1);
+            }
+          }
+        }
+      };
+    }
+
+    //冒泡排序测试
+    function createNonSortedArray(size){//测试冒泡排序
+      var array = new ArrayList();
+      for (var i = size; i > 0; i--){
+        array.insert(i);
+      }
+      return array;
+    }
+
+
+    let array = [3,4,6,1,9,2,5];
+    console.log(array.toString());
+    array.bubbleSort();
+    console.log(array.toString());
+
+
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>

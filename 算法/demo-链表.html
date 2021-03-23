@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>队列</title>
+</head>
+<body>
+  <script>
+    function LinkedList(){
+      var Node = function(element){
+        this.element = element;
+        this.next = null;
+      };
+
+      var length = 0;
+      var head = null;
+
+      this.append = function(element){//向列表尾部添加一个新的项
+        var node = new Node(element),
+            current;
+
+        if (head === null) {
+          head = node;//如果头部无值则直接将要添加的项传给头部
+        }else{
+          current = head;//如果头部有值则通过while循环找到最后一个项再给它添加下一项的指针
+          while(current.next){
+            current = current.next;
+          }
+          current.next = node;
+        }
+        length++;//更新列表的长度
+      };
+      this.insert = function(position, element){//在任意位置插入一个元素
+        if (position >= 0 && position <= length) {
+          var node = new Node(element),
+              current = head,
+              previous,
+              index = 0;
+
+          if (position === 0) {
+            node.next = current;
+            head = node;
+          } else {
+            while (index++ < position){
+              previous = current;
+              current = current.next;
+            }
+            node.next = current;
+            previous.next = node;
+          }
+          length++;
+          return true;
+        } else {
+          return false;
+        }
+      };
+      this.removeAt = function(position){//移除列表中的元素
+        if (position > -1 && position < length) {
+          var current = head,
+              previous,
+              index = 0;
+          if (position === 0) {
+            head = current.next;
+          } else {
+            while (index++ < position){//获取到列表要删除的元素和他的前后元素
+              previous = current;
+              current = current.next;
+            }
+            previous.next = current.next;
+          }
+          length--;
+          return current.element;
+        } else {
+          return null;
+        }
+      };
+      this.remove = function(element){
+        var index = this.indexOf(element);
+        return this.removeAt(index);
+      };
+      this.indexOf = function(element){//寻找列表中元素的位置，无则返回－1
+        var current = head,
+            index = -1;
+
+        while (current) {
+          if (element === current.element) {
+            return index;
+          }
+          index++;
+          current = current.next;
+        }
+        return -1;
+      };
+      this.isEmpty =function(){};
+      this.size = function(){};
+      this.toString = function(){//将LinkeList对象转换成一个字符串？？？？
+        var current = head,
+            string = '';
+
+        while (current) {
+          string += current.element;
+          current = current.next;
+        }
+        return string;
+      };
+      this.print = function(){};
+      return head;
+    }
+    var list = new LinkedList();
+    list.append(10);
+
+
+
+
+    var a = '';//
+    var i = 1;
+    var b = {
+      elemnet: 'ming'
+    }
+    while ( i > 5) {
+      a = b.element;
+    }
+    console.log(a);
+  </script>
+</body>
+
+</html>

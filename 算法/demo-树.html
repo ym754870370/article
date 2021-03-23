@@ -1,0 +1,237 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>队列</title>
+</head>
+<body>
+  <script>
+    //树没有父节点，只有树顶部的节点叫做根节点，无子元素的节点叫做外节点，有子元素的节点叫做内节点
+    //树的深度取决于该节点上有多少个祖先节点
+    //树还有一种概念叫做 子树
+
+
+    //二叉树
+
+    function BinarySearchTree(){
+      
+      var Node = function(key){//设置一个节点
+        this.key = key; //节点自身值
+        this.left = null; //节点的左节点指针
+        this.right = null;//节点的右节点指针
+      };
+      
+      var root = null; //先声明根变凉
+
+      this.insert = function(key){ //插入元素
+        var newNode = new Node(key); //将传入的值继承节点的格式，并导入该节点
+
+        if (root === null) {
+          root = newNode;//判断二叉树有无根节点，无则将新节点变成根节点
+        } else {
+          insertNode(root, newNode);//如果二叉树有根节点，则调用下面方法进行节点的插入
+        }
+      }
+
+      
+      var insertNode = function(node, newNode){
+        if (newNode.key < node.key) {//如果新的节点的值小于其父节点值则传递到该父节点的左节点
+          if (node.left === null) {
+            node.left = newNode;//如果父节点的左节点指针指向空则将指针指向该节点
+          } else {
+            insertNode(node.left, newNode);
+            //如果父节点的左节点指针不为空则将该节点的左节点再作为父节点再次调用函数方法继续判断无限向下直到某个位置左右节点指针为空
+          }
+        } else {
+          if (node.right === null) {
+            node.right = newNode;
+          } else {
+            insertNode(node.right, newNode);
+          }
+        }
+      };
+
+
+      //中序遍历
+      this.inOrderTraverse = function(callback){
+        inorderTraverseNode(root, callback);
+      };
+
+      var inorderTraverseNode = function(node, callback){
+        if (node !== null) {
+          inorderTraverseNode(node.left, callback);
+          //左节点， 这几个方法的执行顺序不应该时从最底层开始，然而先执行最底层的node,再执行它的父节点，那其的左右节点不是又要再执行一遍吗？？？？
+          //因为它们时层层包裹的关系，不会对节点值进行重复打印
+          callback(node.key);//根节点
+          inorderTraverseNode(node.right, callback);//右节点
+        }
+      };
+      
+
+
+      //先序遍历
+      this.preOrderTraverse = function(callback){
+        preOrderTraverseNode(root, callback);
+      };
+
+      var preOrderTraverseNode = function(node, callback){
+        if (node !== null) {
+          callback(node.key);//根
+          preOrderTraverseNode(node.left, callback);//左
+          preOrderTraverseNode(node.right, callback);//右
+        }
+      };
+
+
+      //后序遍历
+
+      this.postOrderTraverse = function(callback){
+        postOrderTraverseNode(root, callback);
+      };
+
+      var postOrderTraverseNode = function(node, callback){
+        if (node !== null) {
+          postOrderTraverseNode(node.left, callback);//左
+          postOrderTraverseNode(node.right, callback);//右
+          callback(node.key);//根
+        };
+      };
+
+
+
+      //搜索最小值
+      this.,min = function(){
+        return minNode(root);//可以直接把局部变量直接传入调用吗？？？？？？？？？    可以
+      };
+
+      var minNode = function(node){
+        if (node) {
+          while(node && node.left !== null) {
+            node = node.left
+          }
+          return node.key;
+        }
+        return null;
+      };
+      
+
+      //搜索最大值
+
+      this.max = function(){
+        return maxNode(node);
+      };
+
+      var maxNode = function(node){
+        if (node) {
+          while (node && node.left !== null) {
+            node = node.right;
+          }
+          return node.key;
+        }
+        return null;
+      };
+
+
+      //搜索一个特定的值
+
+      this.search = function(key){
+        return searchNode(root, key);
+      };
+
+      var searchNode = function(node, key){
+        if (node === null) {
+          return false;
+        }
+        if (key < node.key) {
+          return searchNode(node.left, key);
+        } else if (key > node.key) {
+          return searchNode(node.right, key);
+        } else {
+          return true;
+        }
+      };
+
+      
+
+      //移除一个节点
+
+      this.remove = function(key){
+        root = removeNode(root, key);
+      };
+
+      var removeNode = function(node, key){
+        if (node === null) {
+          return null;
+        }
+        if (key < node.key) {
+          
+          node.left = removeNode(node.left, key);
+          
+          return node//当没有找到需要删除的节点时，则依旧返回原来的二叉树
+        
+        } else if (key > node.key) {
+          
+          node.right = removeNode(node.right, key);
+          
+          return node;//当没有找到需要删除的节点时，则依旧返回原来的二叉树
+        
+        } else { //节点值等于node.key
+
+          //第一种情况————一个叶节点
+          if (node.left === null && node.right === null) {
+            node = null;//由于无左右节点则直接将node值设置为null
+            return node;//这样就会返回一个已经删除想要删除的节点的新的二叉树
+          }
+
+          //第二种情况————一个只有一个字节点的节点
+          if (node.left === null) {//如果左节点为null
+            node = node.right;//则直接把当前节点的右节点覆盖当前节点
+            return node;
+          } else if (node.right === null) {//如果右节点为null
+            node = node.left;//则直接把当前节点的左节点覆盖当前节点
+            return node;
+          }
+
+          //第三种情况————一个有两个子节点的节点
+          var aux = findeMinNode(node.right);//寻找到右子树中最小的节点 也就是右子树中最左的子节点
+
+          var findeMinNode = function(node){
+            while (node && node.left !== null) {
+              node = node.left;
+            }
+            return node;
+          };
+
+
+          node.key = aux.key;
+          node.right = removeNode(node.right, aux.key);//删除该节点返回一个新的已删除节点后的右子树覆盖之前的右子树
+          return node;
+        }
+      };
+
+
+
+    }
+
+
+
+      
+
+    var tree = new BinarySearchTree();
+    tree.insert(10);
+    tree.insert(1);
+    tree.insert(2);
+    tree.insert(3);
+    tree.insert(4);
+    tree.insert(5);
+    tree.insert(8);
+
+
+    function printNode(value){
+        console.log(value);
+    }
+    tree.inOrderTraverse(printNode);
+  </script>
+</body>
+
+</html>

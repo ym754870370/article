@@ -1,0 +1,270 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>排序算法</title>
+</head>
+<body>
+  <script>
+    function ArrayList(){
+      var array = [];
+      this.insert = function(item){
+        array.push(item);
+      };
+      this.toString = function(){
+        return array.join();
+      };
+
+
+      //冒泡排序：前后值比较，满足条件则前后互换键值，然后往后推一位再进行比较
+
+      this.bubbleSort = function(){
+        var length = array.length;
+        for (var i=0; i<length; i++){//执行length轮所有前后元素的一次比较
+          for (var j=0; j<length-1; j++){//将数组中所有的前后元素进行一次比较
+            if (array[j] > array[j+1]) {
+              swap(j, j+1);
+            }
+          }
+        }
+      };
+
+      //冒泡排序升级版
+      this.modifiedBubbleSort = function(){
+        var length = array.length;
+        for (var i = 0; i < length; i++){
+          for (var j = 0; j < length - 1 -i; j++){
+          //每进行一轮比较，最大的数字就会被移到length最后一个位置，因此如果全部再比较一次，则每进行一次，就会增加不必要的比较因此可以减去已比较的轮数来去处不必要的比较
+            if (array[j] < array[j+1]) {
+              swap(j, j+1);
+            }
+          }
+        }
+      };
+
+
+      var swap = function(index1, index2){//交换数组两个位置的值
+        var aux = array[index1];
+        array[index1] = array[index2];
+        array[index2] = aux;
+      };
+
+
+
+
+
+
+
+      //选择排序: 找到数据结构中的最小值并将其放置在第一位，然后找第二小的值并将其放在第二位
+      this.selectionSort = function(){
+        var length = array.length,
+            indexMin;
+      //从数组第一个数开始，和后面的所有数进行比较，如果满足条件，则通过键取出该数再与它后面的进行比较，一直比较大哦最后一个，最终选择出最大的数的键，然后判断它是否是第一个数，不是就将它和第一个数交换，接着从i=2，第二个数载向后依次比较
+        for (var i = 0;i < length - 1; i++){
+          indexMin = i;
+          for (var j = i; j < length; j++){
+            if (array[indexMin]>array[j]) {
+              indexMin = j;
+            }
+          }
+          if (i !== indexMin) {
+            swap(i, indexMin);
+          }
+        }
+      };
+
+
+
+
+
+
+      //插入排序：
+      this.insertionSort = function(){
+        var length = array.length,
+            j, temp;
+
+        //假定第一项已经排序，从数组第二个元素开始，然后把这个数组值先缓存大哦变量temp中，然后和将这个值和它前面的值逐个比较，满足条件则满足条件位置的数组值覆盖
+        //到当前的判断的数组值上，最后再把缓存的数组值覆盖 已经覆盖判断数组值的数组的位置上  
+        //实则就是如果判断成功，最后找到判断数组值前面的所有值中最满足的那一个和它互换位置
+        for (var i = 1; i < length; i++){
+          j = i;
+          temp = array[i];
+          while (j > 0 && array[j-1] > temp){
+            array[j] = array[j-1];
+            j--;
+          }
+          array[j] = temp;
+        }
+      }
+
+
+
+      //归并排序：时间复杂度 O(nlog*n)
+
+      this.mergeSort = function() {
+        array = mergeSortRec(array);
+      };
+
+
+      //将数组中的所有元素最终划分成一个元素代表一个单个的数组
+      this.mergeSortRec = function(array){
+        var length = array.length;
+        if (length === 1) {
+          return array;
+        }
+        var mid = Math.floor(length / 2),//获取数组长度值的一半
+            left = array.slice(0, mid),//遍历数组0到mid位置
+            right = array.slice(mid, length);
+
+        return merge(mergeSortRec(left),mergeSortRec(right))//层层内嵌,会先执行merge内部的函数行参，再执行merge方法
+      };
+
+
+      var merge = fuction(left, right){//先将单个左右元素合并，再合并两个，再四个，层层比较插入再合并
+        var result = [],
+            il = 0,//ileft
+            ir = 0;//iright
+
+        while(il < left.length && ir < right.length){//将左右两边的元素逐个进行比较大小，il和ir自增保持左右数组元素的递变，
+          if (left[il] < right[ir]) {//将满足条件的元素先放入result栈中，直到将左右数组中其中一个全部插入到栈中
+            result.push(left[il++]);
+          } else {
+            result.push(right[ir++]);
+          }
+        }  
+
+        while (il < left.length){//将剩余没有插入栈中的元素全部插入
+          result.push(left[il++]);
+        }
+
+        while (ir < right.length){//将剩余没有插入栈中的元素全部插入
+          result.push(right[ir++]);
+        }
+        return result;//最终返回排序好的栈
+      }
+
+
+      //快速排序:  时间复杂度O(nlog*n)   思想？？？？？？？？？
+
+      this.quickSort = function(){
+        quick(array, 0, array.length - 1);//array数组长度不发生变化，仅仅变化数组元素的位置
+      };
+
+      var quick = function(array, left, right){
+        var index;
+
+        if (array.length > 1) {//如果传入数组本身的元素只有一个 则没必要再排序
+          index = partition(array, left, index - 1);
+
+          if (left < index -1) {//left永远为0，所以要想跳出循环必须等到partition函数返回0
+            quick(array, left, index - 1);//划分并操作每次术语pivot的左半边
+          }
+
+          if (index < right) {
+            quick(array, index, right);//划分并操作每次术语pivot的左半边
+          }
+        }
+      };
+
+      var partition = function(array, left, right){
+
+        var pivot = array[Math.floor((right + left) / 2)],//取得数组的中间值
+            i = left,
+            j = right;
+
+        while (i <= j) {
+          while (array[i] < pivot) {//依次向后查找，找到最前面比pivot大的值，跳出循环
+            i++;
+          }
+
+          while (array[j] < pivot) {//依次向前查找，找到最后面比pirvot大的值，跳出循环
+            j--;
+          }
+
+          if (i <= j) {
+            swapQuickStort(array, i, j);//将上面得到的i和j索引的值交换
+            i++;
+            j--;
+          }
+        }
+        return i;
+      };
+
+      var swapQuickStort = function(array, index1, index2){
+        var aux = array[index1];
+        array[index1] = array[index2];
+        array[index2] = aux;
+      };
+
+      
+
+
+
+      //顺序搜索
+
+      this.sequentialSearch = function(item){
+        for (var i = 0; i < array.length; i++){
+          if (item === array[i]) {
+            return i;
+          }
+        }
+        return -1;
+      };
+
+
+
+
+      //二分搜索
+
+      this.binarySearch = function(item){
+        this.quickSort();
+
+        var low = 0,
+            high = array.length - 1,
+            mid, element;
+
+        while (low <= high){
+          mid = Math.floor((low + high) / 2);
+          element = array[mid];
+          if (element < item) {
+            low = mid - 1;
+          } else if (element > item) {
+            high = mid - 1;
+          } else {
+            return mid;
+          }
+        }
+        return -1;
+      };
+
+
+
+    }
+
+
+
+
+
+    //冒泡排序测试
+    function createNonSortedArray(size){//测试冒泡排序
+      var array = new ArrayList();
+      for (var i = size; i > 0; i--){
+        array.insert(i);
+      }
+      return array;
+    }
+
+    var array = createNonSortedArray(5);
+    console.log(array.toString());
+    array.bubbleSort();
+    console.log(array.toString());
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>

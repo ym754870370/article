@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>冒泡排序</title>
+</head>
+<body>
+  <script>
+    function ArrayList(){
+      var array = [];
+      this.insert = function(item){
+        array.push(item);
+      }
+      this.toString = function(){
+        return array.join();
+      }
+
+      let swap = function(index1, index2){
+        let aux = array[index1];
+        array[index1] = array[index2];
+        array[index2] = aux;
+      }
+
+      this.selectionSort = function(){
+        let length = array.length;
+        let indexMin;
+
+        for(let i = 0; i < length - 1; i++){
+          indexMin = i;
+          for(let j = i; j < length; j++){
+            if(array[indexMin] > array[j]){
+              indexMin = j;
+            }
+          }
+          if(i !== indexMin){
+            swap(i, indexMin);
+          }
+        }
+      }
+    }
+
+
+
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>

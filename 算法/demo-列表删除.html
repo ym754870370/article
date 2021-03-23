@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!--code here-->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <title>demo</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    .head, li div {
+      display: inline-block;
+      width: 70px;
+      text-align: center;
+    }
+
+    li .id, li .sex, .id, .sex {
+      width: 15px;
+    }
+     li .name, .name {
+      width: 40px;
+    }
+
+    li .tel, .tel {
+      width: 90px;
+    }
+
+    li .del, .del {
+      width: 15px;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .user-delete {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="J_container">
+    <div class="record-head">
+      <div class="head id">序号</div><div class="head name">姓名</div><div class="head sex">性别</div><div class="head tel">电话号码</div><div class="head province">省份</div><div class="head">操作</div>
+    </div>
+    <ul id="J_List">
+      <li><div class="id">1</div><div class="name">张三</div><div class="sex">男</div><div class="tel">13788888888</div><div class="province">浙江</div><div class="user-delete">删除</div></li>
+      <li><div class="id">2</div><div class="name">李四</div><div class="sex">女</div><div class="tel">13788887777</div><div class="province">四川</div><div class="user-delete">删除</div></li>
+      <li><div class="id">3</div><div class="name">王二</div><div class="sex">男</div><div class="tel">13788889999</div><div class="province">广东</div><div class="user-delete">删除</div></li>
+    </ul>
+  </div>
+
+<script>
+// 此处也可换成ES6的写法
+function Contact(){
+    this.init();
+}
+
+//面向过程式编程
+window.onload = function(){
+    let list = document.getElementById('J_List');
+    if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
+        list.addEventListener('touchend', e => {
+            console.log(e);
+            if (e.target.className === 'user-delete') {
+                list.removeChild(e.target.parentNode);
+                console.log('yang');
+            }
+        })
+    } else {
+        list.addEventListener('click', e => {
+            console.log(e);
+            if (e.target.className === 'user-delete') {
+                list.removeChild(e.target.parentNode);
+                console.log('ming');
+            }
+        })
+    }
+}
+
+
+//
+// //面向对象式编程
+// function User(name, sex, number, province, ele) {
+//     this.name = name || '';
+//     this.sex = sex || '';
+//     this.number = number || 0;
+//     this.province = province || '';
+//     this.ele = ele || {};
+// }
+// User.prototype.delete = function () {
+//     let p = this.ele.parentNode;
+//     p.removeChild(this.ele);
+// };
+// User.prototype.compare = function (e) {
+//   if(this.ele === e) {
+//     return true;
+//   }
+//   return false;
+// };
+//
+// function List() {
+//     this.ele = document.getElementById('J_List');
+//     this.userList = [];
+// }
+// List.prototype.init = function () {
+//     let u = this.ele.childNodes;
+//     for(let i in u) {
+//       if(u[i].nodeName && u[i].nodeName.toUpperCase() === 'LI') {
+//         let n = new User(null, null, null, null, u[i]);
+//         this.userList.push(n);
+//       }
+//     }
+// };
+// List.prototype.addListener = function () {
+//     var _this = this;
+//     this.ele.addEventListener('click', function (e) {
+//       let ele = e.target.parentNode;
+//       let element = _this.findNode(ele);
+//       if(element) {
+//         element.delete();
+//       }
+//     });
+// };
+// List.prototype.findNode = function (e) {
+//     let u = this.userList;
+//     for(let i in u) {
+//       if(u[i].compare(e)) {
+//         return u[i];
+//       }
+//     }
+//     return null;
+// };
+//
+// function init() {
+//     // users here
+//     var u = new List();
+//     u.init();
+//     u.addListener();
+// }
+//
+// init();
+
+</script>
+</body>
+</html>

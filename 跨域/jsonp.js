@@ -88,7 +88,6 @@ function ajax(params){
         function random() {
             return Math.floor(Math.random() * 10000 + 500);
         }
-
     }
 }
 

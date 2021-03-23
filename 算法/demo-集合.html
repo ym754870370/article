@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>集合</title>
+</head>
+<body>
+  <script>
+    function Set() {//集合是一个既没有重复数组也没有顺序概念的数组。
+      var items = {},
+          length = 0;
+      this.has = function(value){
+        return value in items;
+      };
+      // this.has = function(value){
+      //   return items.hasOwnProperty(value);
+      // };
+      //hasOwnProperty：是用来判断一个对象是否有你给出名称的属性或对象。不过需要注意的是，此方法无法检查该对象的原型链中是否具有该属性，该属性必须是对象本身的一个成员。
+      //isPrototypeOf:是用来判断要检查其原型链的对象是否存在于指定对象实例中，是则返回true，否则返回false。
+      
+      this.add = function(value){
+        if (!this.has(value)) {
+          items[value] = value;
+          length++;
+          return true;
+        }
+        return false;
+      };
+
+      this.remove = function(value){
+        if (this.has(value)) {
+          delete items[value];
+          length--;
+          return true;
+        }
+        return false;
+      };
+
+      this.clear = function(){
+        return item = {};
+      };
+
+      this.size = function(){
+        return Object.keys(items).length;
+      };
+      // this.sizeLegacy = function(){
+      //   var count = 0;
+      //   for (var prop in items) {
+      //     if (items.hasOwnProperty(prop)) {
+      //       ++count;
+      //     }
+      //     return count;
+      // };
+
+      this.values = function(){
+        return Object.keys(items);
+      };
+      // this.valuesLegacy = function(){//遍历items对象的所有属性，把它们添加一个数组中，并返回这个数组。
+      //   var keys = [];
+      //   for(var key in items){
+      //     keys.push(key);
+      //   }
+      //   return keys;
+      // };
+
+
+
+
+      //并集
+
+      this.union = function(otherSet){
+        var unionSet = new Set();
+
+        var values = this.values();
+        for (var i = 0; i < values.length; i++){
+          unionSet.add(values[i]);
+        }
+
+        values = otherSet.values();
+        for (var i = 0; i < values.length; i++){
+          unionSet.add(values[i]);
+        }
+
+        return unionSet
+      };
+
+
+      //交集
+
+      this.intersection = function(otherSet){
+        var intersectionSet = new Set();
+        var values = this.values();
+        for (var i = 0; i < values.length; i++){
+          if (otherSet.has(values[i])) {
+            intersectionSet.add(values[i]);
+          }
+        }
+        return intersectionSet;
+      };
+
+      
+
+      //差集
+
+      this.difference = function(otherSet){
+        var differenceSet = new Set();
+        var values = this.values();
+        for (var i = 0; i < values.length; i++){
+          if (!otherSet.has(values[i])) {
+            differenceSet.add(values[i]);
+          }
+        }
+        return differenceSet;
+      };
+
+
+      //子集
+      this.subset = function(otherSet){
+        if (this.size() > otherSet.size()) {
+          return false;
+        } else {
+          var values = this.values();
+          for (var i = 0; i < values.length; i++){
+            if (!otherSet.has(values[i])) {
+              return false;
+            }
+          }
+          return true;
+        }
+      }
+
+    }
+
+    var set = new Set();
+
+    set.add(1);
+    console.log(set.values());
+    console.log(set.has(1));
+    console.log(set.size());
+
+    set.remove(1);
+    console.log(set.values());
+
+    var setA = new Set();
+    setA.add(1);
+    setA.add(2);
+
+    var setB = new Set();
+    setB.add(3);
+    setB.add(4);
+    setB.add(2);
+
+    var unionAB = setA.union(setB);
+    console.log(unionAB.values());
+    var intersectionAB = setA.intersection(setB);
+    console.log(intersectionAB.values());
+
+
+
+    function demo(){
+      if (true) {
+        return alert('1');
+      }
+      return alert('2');
+    }
+    demo();//函数中执行return后就跳出该函数
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>归并排序</title>
+</head>
+<body>
+  <script>
+      var merge = function(array){
+        var arr = chaifen(array);
+        return arr;
+      }
+
+      var chaifen = function(array){
+        if(array.length <= 1){
+            return array;
+        }
+        var index = Math.floor(array.length/2);
+        var left = array.slice(0, index);
+        var right = array.slice(index, array.length);
+
+        return paixu(chaifen(left), chaifen(right));
+      }
+
+      var paixu = function(left, right){
+        var i = 0;
+        var j = 0;
+        var arr = [];
+        while(i < left.length && j < right.length){
+            if (left[i] > right[j]) {
+                arr.push(right[j++]);
+            } else {
+                arr.push(left[i++]);
+            }
+        }
+        while(right[j]){
+            arr.push(right[j++]);
+        }
+        while(left[i]){
+            arr.push(left[i++])
+        }
+        return arr;
+      }
+
+  </script>
+</body>
+
+</html>

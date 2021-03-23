@@ -1,0 +1,312 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>字典散列表</title>
+</head>
+<body>
+  <script>
+    
+
+    function LinkedList(){
+      var Node = function(element){
+        this.element = element;
+        this.next = null;
+      };
+
+      var length = 0;
+      var head = null;
+
+      this.append = function(element){//向列表尾部添加一个新的项
+        var node = new Node(element),
+            current;
+
+        if (head === null) {
+          head = node;//如果头部无值则直接将要添加的项传给头部
+        }else{
+          current = head;//如果头部有值则通过while循环找到最后一个项再给它添加下一项的指针
+          while(current.next){
+            current = current.next;
+          }
+          current.next = node;
+        }
+        length++;//更新列表的长度
+      };
+      this.insert = function(position, element){//在任意位置插入一个元素
+        if (position >= 0 && position <= length) {
+          var node = new Node(element),
+              current = head,
+              previous,
+              index = 0;
+
+          if (position === 0) {
+            node.next = current;
+            head = node;
+          } else {
+            while (index++ < position){
+              previous = current;
+              current = current.next;
+            }
+            node.next = current;
+            previous.next = node;
+          }
+          length++;
+          return true;
+        } else {
+          return false;
+        }
+      };
+      this.removeAt = function(position){//移除列表中的元素
+        if (position > -1 && position < length) {
+          var current = head,
+              previous,
+              index = 0;
+          if (position === 0) {
+            head = current.next;
+          } else {
+            while (index++ < position){//获取到列表要删除的元素和他的前后元素
+              previous = current;
+              current = current.next;
+            }
+            previous.next = current.next;
+          }
+          length--;
+          return current.element;
+        } else {
+          return null;
+        }
+      };
+      this.remove = function(element){
+        var index = this.indexOf(element);
+        return this.removeAt(index);
+      };
+      this.indexOf = function(element){//寻找列表中元素的位置，无则返回－1
+        var current = head,
+            index = -1;
+
+        while (current) {
+          if (element === current.element) {
+            return index;
+          }
+          index++;
+          current = current.next;
+        }
+        return -1;
+      };
+      this.isEmpty =function(){};
+      this.size = function(){};
+      this.toString = function(){//将LinkeList对象转换成一个字符串？？？？
+        var current = head,
+            string = '';
+
+        while (current) {
+          string += current.element;
+          current = current.next;
+        }
+        return string;
+      };
+      this.print = function(){};
+      return head;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //字典中，存储的是[键，值],其中键名是用来查询特定元素的。集合以[值，值]的形式存储元素。
+
+
+    function Dictionary(){
+      var items = {};
+      this.has = function(key) {
+        return key in items;
+      };
+
+      this.set = function(key, value) {
+        items[key] = value;
+      };
+      
+      this.remove = function(key){
+        if (this.has[key]) {
+          delete items[key];
+          return true;
+        } else {
+          return false;
+        }
+      };
+
+      this.get = function(key) {
+        return this.has(key) ? items[key] : undefined;
+      };
+
+      this.value = function() {
+        var values = {};
+        for (var k in items) {
+          if (this.has(k)) {
+            values.push(items[k]);
+          }
+        }
+        return values;
+      };
+
+      this.getItems = function() {
+        return items;
+      };
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //散列算法的作用是尽可能快地在数据结构中找到一个值，散列函数的作用是给定一个键值，然后返回值在表中的地址。
+
+    function HashTable() {//如果使用散列函数就知道值的具体位置，
+      var table = [];
+      //put(key, value):向散列表增加一个新的项（也能更新散列表）。
+      //remove(key): 根据键值从散列表中移除值。
+      //get(key): 返回根据键值检索到的特定的值
+
+      var loseloseHashCode = function(key) {//给键值返回特定的数字作为位置与之对应
+        var hash = 0;
+        for (var i = 0; i < key.length; i++) {
+          hash += key.charCodeAt(i);//根据key的每个字符的ascii码值的和得到一个数字
+        }
+        return hash % 37;//为了得到小点的值，所以用hash值和一个任意数做除法的余数
+      };
+      
+      var ValuePair = function(key, value){
+        this.key = key;
+        this.value = value;
+
+        this.toString = function() {
+          return '[' + this.key + ' - ' + this.value + ']';
+        }
+      };
+      // this.put = function(key, value) {
+      //   var position = loseloseHashCode(key);
+      //   console.log(position + ' - ' + key);
+      //   table[position] = value;//table数组某个位置对应特定的值，没有赋值的位置依然存在只是是undefined
+      // };
+      this.put = function(key, value){
+        var position = loseloseHashCode(key);
+
+        if (table[position] == undefined) {
+          table[position] = new LinkedList();
+        }
+        table[position].append(new ValuePair(key, value));
+      };
+
+      // this.get = function(key) {
+      //   return table[loseloseHashCode(key)];
+      // };
+
+      this.get = function(key) {
+        var position = loseloseHashCode(key);
+
+        if (table[position] !== undefined) {//遍历链表寻找键值
+          var current = table[position].getHead();
+
+          while(current.next){
+            if (current.element.key === key) {
+              return current.element.value;
+            }
+            current = current.next;
+          }
+          if (current.element.key === key) {//检查元素在链表第一个或最后一个节点的情况
+            return current.element.value;
+          }
+        }
+        return undefined;
+      };
+
+      // this.remove = function(key) {
+      //   table[loseloseHashCode(key)] = undefined;
+      // };
+      this.remove = function(key){
+        var position = loseloseHashCode(key);
+
+        if (table[position] !== undefined) {
+
+          var current = table[position].getHead();
+          while(current.next){
+            if (current.element.key === key) {
+              table[position].remove(current.element);
+              if (table[position].isEmpty()) {
+                table[position] = undefined;
+              }
+              return true;
+            }
+            current = current.next;
+          }
+          if (current.element.key === key) {
+            table[position].remove(current.element);
+            if (table[position].isEmpty()) {
+              table[position] = undefined;
+            }
+            return true;
+          }
+        }
+        return false;
+      };
+
+      this.print = function() {
+        for (var i = 0; i < table.length; ++i){
+          if (table[i] !== undefined) {
+            console.log(table.length);
+            console.log(i + ': ' + table[i]);
+          }
+        }
+      };
+
+    }
+
+    var hash = new HashTable();
+    hash.put('ming','sdasdasdasd');
+    hash.put('yang','dedfsdfsfs');
+    hash.put('weng','fdfjdkjsjdjsk');
+    console.log(hash.get('ming'));
+    hash.print();
+    
+
+
+  </script>
+</body>
+
+</html>
