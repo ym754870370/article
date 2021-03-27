@@ -73,7 +73,6 @@ var paixu = function(left, right) {
 // 深拷贝
 
 const deepClone = function(copyObj, obj = {}) {
-   
   for(key in copyObj) {
     if(typeof copyObj[KEY] === 'object') {
       obj[key] = (copyObj[key].constructor === Array) ? [] : {};
@@ -81,5 +80,5 @@ const deepClone = function(copyObj, obj = {}) {
     } else {
       obj[key] = copyObj[key]
     }
-  } 
+  }
 }
