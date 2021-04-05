@@ -161,3 +161,24 @@
       });
 
 ```
+
+## 实现并发式请求
+```javascript
+      Promise.map = function(arr, num) {
+            const reqList = [];
+            
+            setReq
+
+
+
+
+
+
+
+
+
+
+
+      }
+
+····
