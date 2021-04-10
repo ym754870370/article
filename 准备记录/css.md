@@ -8,13 +8,12 @@
     flex-wrap: wrap(换行) / nowrap(不换行) / wrap-reverse(第一行在下方);
     flex-flow: <flex-direction> || <flex-wrap> 集合上面两个参数
 
-    justify-content: center;水平居中
+    justify-content: center;水平居中 space-evenly 间距完全相同 space-around 均匀分布，行首到第一个元素和行尾到最后一个元素的间距是 元素之间的一半
     align-item: center;垂直居中
     align-content: flex-start | flex-end | center | space-between | space-around | stretch; 定义了多行排列布局方式
 
     子盒子属性
     order: <number>  决定盒子排列顺序，数值越大越在后面
-
     flex-grow:当父级盒子大于所有子盒子面积时，子盒子索取父级盒子的剩余空间来放大自己
     flex-basis:设置该元素的宽度，会覆盖width的值
     flex-shrink:当父级盒子小于子盒子面积时，子盒子会缩小自身的宽度
@@ -53,7 +52,6 @@
     2. display: none
     3. opcity: 0
     4. position: absolute 移动到视图区域外
-    5. 
+    5. z-index
 
 9. 水平垂直居中的方法
-

@@ -186,8 +186,16 @@
 ## 如何量化这次webpack的升级
     1. speed-measure-webpack-plugin: 分析整个打包的总耗时，以及每一个loader和每一个plugins的耗时，从而快速定位到可以优化的Webpack配置
     2. webpack-bundle-analyzer: 直观的给出每个文件打包的大小以及各自的依赖
-    3.
 
 ## webpack文件如何在浏览器运行
-
+    加载完所有的依赖，会生成一个自执行函数，
 ## output.path 和 output.publicpath
+    publicpath： 可以设置为静态资源打包后的实际存储的路径
+    path: 打包输出的结果存储在哪
+
+## webpack按需加载
+    如何保证相同的文件只加载一次？
+        会定义一个installedChunks对象(installedChunks[chunkId])，存取异步js的promise回调，如果已经加载过，则返回一个空数组的promise.all([]),如果在加载过程中，则返回已经存储过的此文件对应的promise
+
+    怎么判断文件加载完成？文件加载完成，怎么通知所有引入文件的地方？
+        1. 在主文件中定义一个全局数组，并重写其push方法，在异步文件中执行此全局数组的push方法，对push方法实现回调监听

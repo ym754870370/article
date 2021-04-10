@@ -216,4 +216,10 @@
 
 16. script异步标签
     <script type="module"> == <script defer> 异步加载，等页面渲染完成再执行
-    <script async> 一旦下载完成，就会阻塞渲染引擎执行js文件 
+    <script async> 一旦下载完成，就会阻塞渲染引擎执行js文件
+
+17. 判断当前对象是否为空对象 {}
+    1. JSON.stringfy()
+    2. Object.keys => 返回对象Obj的自身属性组成的数组
+    3. for in => hasOwnProperty()
+    4. reflect.ownKeys(Obj) => 返回对象Obj的自身属性组成的数组
