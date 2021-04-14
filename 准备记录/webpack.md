@@ -27,7 +27,7 @@
     loader: 'babel-loader?cacheDirectory=true'
 
    ```
-    <!-- 2. HappyPack
+    2. HappyPack
     
     HappyPack 可以将 Loader 的同步执行转换为并行的，这样就能充分利用系统资源来加快打包效率了
 
@@ -52,7 +52,7 @@
             })
         ]
 
-    ``` -->
+    ```
 
     3. DllPlugin
         DllPlugin 可以将特定的类库提前打包然后引入。这种方式可以极大的减少打包类库的次数，只有当类库更新版本才有需要重新打包，并且也实现了将公共代码抽离成单独文件的优化方案。
