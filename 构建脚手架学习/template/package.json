@@ -1,0 +1,33 @@
+{
+  "name": "@ad-audit/audit-cli-template",
+  "version": "0.0.8",
+  "description": "脚手架",
+  "main": "main.js",
+  "keywords": [
+    "@ad-audit/audit-cli-template",
+    "audit-cli-template",
+    "audit-cli"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "echo \"audit-cli dev  yyymmm\" && exit 1",
+    "over": "git add . && git commit -m 'audit-cli' && git push && npm publish"
+  },
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "shelljs": "^0.8.4",
+    "path": "^0.12.7",
+    "commander": "^3.0.2",
+    "inquirer": "^7.0.0"
+  },
+  "devDependencies": {},
+  "bin": {
+    "audit-cli": "main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@code.byted.org:ad/audit-cli-template.git"
+  },
+  "author": "yangming.mingdi",
+  "license": "ISC"
+}

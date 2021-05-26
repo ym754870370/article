@@ -1,0 +1,33 @@
+{
+    "name": "app",
+    "version": "1.0.0",
+    "description": "mobile app for feiyu-crm platform",
+    "author": "杨明 <yangming.mingdi.1996412@bytedance.com>",
+    "private": true,
+    "scripts": {
+        "dev": "node node_modules/@ad-audit/audit-template-cli/src/audit-dev.js",
+        "build": "node node_modules/@ad-audit/audit-template-cli/src/config/build/build.js",
+        "start": "npm run dev",
+        "lint": "eslint --ext .js,.vue --fix src",
+        "dll": "webpack --config build/webpack.dll.conf.js",
+        "clean": "rm -rf output",
+        "yarn": "node scripts/yarn-1.3.2.js"
+    },
+    "dependencies": {
+        "@ad-audit/audit-template-cli": "0.0.14"
+    },
+    "devDependencies": {
+    },
+    "pre-commit": [
+        "lint"
+    ],
+    "engines": {
+        "node": ">= 6.0.0",
+        "npm": ">= 3.0.0"
+    },
+    "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not ie <= 8"
+    ]
+}

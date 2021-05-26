@@ -1,0 +1,23 @@
+{
+    "app": {
+        "filename": "views/app.html",
+        "template": "/src/template/index_normal.html",
+        "chunkName": "app",
+        "jsTplPath": "/src/router/js_tpl/app.js",
+        "isUseRem": false
+    }, 
+    "audit": {
+        "filename": "views/audit.html",
+        "template": "/src/template/index_normal.html",
+        "chunkName": "audit",
+        "jsTplPath": "/src/router/js_tpl/audit.js",
+        "isUseRem": false
+    },
+    "crm": {
+        "filename": "views/crm.html",
+        "template": "/src/template/index_normal.html",
+        "chunkName": "crm",
+        "jsTplPath": "/src/router/js_tpl/crm.js",
+        "isUseRem": false
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "apps": [{
+        "name": "audit_cli_test",
+        "args": [],
+        "script": "./bin/www",
+        "node_args": "--harmony",
+        "max_memory_restart" : "10240M",
+        "env_production": {
+          "NODE_ENV": "production",
+          "PORT": 3001
+        },
+        "env_dev": {
+          "NODE_ENV": "development",
+          "PORT": 3001
+        }
+    }]
+}
