@@ -44,6 +44,7 @@
 
         if (db.objectStoreNames.contains(tableName)) {
             // 必须通过 transaction 向数据库提出事务要求
+            // transaction 有三种可用模式：readonly，readwrite，和 versionchange。
             const transaction = db.transaction([tableName], "readwrite");
 
             // objectStore 是 indexedDB 的数据存储机制，和 SQL 的表的地位一致
