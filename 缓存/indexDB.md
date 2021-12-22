@@ -155,4 +155,20 @@
 ```
 
 
+### indexedDB 与 localStorage 区别
+    1. 支持度 
+        indexedDB 存储 IE10+支持，localStorage 存储 IE8+支持，后者兼容性更好
+    2. 存储数据格式
+        indexedDB 可直接存储 键值方式，读取数据无需转化
+        localStorage 存储只能存字符串，非字符串数据写入写出都需要JSON转化，麻烦且存在性能损耗
+    3. 存储量级
+        indexedDB 采用硬件存储，很难达到上限
+        localStorage 存储 google下为5M, 存在溢出风险
+    3. 同步异步
+        indexedDB 为异步操作，不用担心阻塞后续同步js执行
+        localStorage 为同步操作，会阻塞后续js执行
+    4. 其它
+        indexedDB 存储可以在 Web Workers 中使用，localStorage 不可以
+        
+        
 ## 借鉴地址：https://www.tangshuang.net/3735.html#title-9-6
