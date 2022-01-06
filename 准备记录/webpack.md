@@ -94,6 +94,7 @@
     9. mini-css-extract-plugin 提取css webpack4
     10. webpack-bundle-analyzer 对文件进行可视化展示
     11. Html-webpack-plugin录入常用变量
+    12. MinChunkSizePlugin 对js文件进行压缩合并
     
 #### 3. webpack 编译流程
         entry: 开始构建的文件入口
